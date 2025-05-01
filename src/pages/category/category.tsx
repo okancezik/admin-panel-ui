@@ -5,6 +5,7 @@ import CategoryApi from "../../api/services/category/category-api";
 import DeleteModal from "../../components/modals/delete-modal";
 import DeleteButton from "../../components/buttons/delete-button/delete-button";
 import UpdateButton from "../../components/buttons/update-button/update-button";
+import CreateModal from "./create-modal";
 
 const Category = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,6 +14,7 @@ const Category = () => {
   >(undefined);
   const [dataSource, setDataSource] = useState<CategoryResponseModel[]>([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [isCreateModalOpen, setCreateModalOpen] = useState<boolean>(false);
 
   const columns = [
     {
@@ -83,7 +85,7 @@ const Category = () => {
           <Typography.Title level={4}>Categories</Typography.Title>
         </Col>
         <Col>
-          <Button type="primary" onClick={() => {}}>
+          <Button type="primary" onClick={() => setCreateModalOpen(true)}>
             New Category
           </Button>
         </Col>
@@ -103,6 +105,14 @@ const Category = () => {
         onCancel={() => setDeleteModalOpen(false)}
         onOk={deleteCategory}
         data={selectedData}
+      />
+      <CreateModal
+        open={isCreateModalOpen}
+        onCreated={()=>{
+            setCreateModalOpen(false)
+            getAll()
+        }}
+        onCancel={()=>setCreateModalOpen(false)}
       />
     </Space>
   );
