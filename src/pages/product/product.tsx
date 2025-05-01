@@ -51,8 +51,8 @@ const Product = () => {
       dataIndex: "categoryName",
     },
     {
-      title: "Delete",
-      key: "action",
+      title: "Action",
+      key: "",
       render: (record: ProductResponseModel) => (
         <Space>
           <DeleteButton
@@ -112,7 +112,7 @@ const Product = () => {
   };
 
   return (
-    <Space size={20} direction="vertical">
+    <Space style={{width:"100%"}} size={20} direction="vertical">
       <Row justify={"space-between"} align={"middle"}>
         <Col>
           <Typography.Title level={4}>Products</Typography.Title>
@@ -131,7 +131,8 @@ const Product = () => {
         pagination={{
           pageSize: 10,
         }}
-      />
+        scroll={{ x: "max-content" }}
+        />
       <DeleteModal
         open={isDeleteModelOpen}
         data={selectedData}

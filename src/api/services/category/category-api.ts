@@ -8,4 +8,8 @@ export default class CategoryApi {
     );
     return response.data;
   }
+
+  public async Delete(id: string){
+    return await axios.delete(`http://localhost:8080/api/v1/category/${id}`);
+  }
 }
