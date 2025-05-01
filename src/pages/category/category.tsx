@@ -6,15 +6,20 @@ import DeleteModal from "../../components/modals/delete-modal";
 import DeleteButton from "../../components/buttons/delete-button/delete-button";
 import UpdateButton from "../../components/buttons/update-button/update-button";
 import CreateModal from "./create-modal";
+import UpdateModal from "./update-modal";
 
 const Category = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedData, setSelectedData] = useState<
     CategoryResponseModel | undefined
   >(undefined);
+  const [selectedUpdateData, setSelectedUpdateData] = useState<
+    CategoryResponseModel | undefined
+  >(undefined);
   const [dataSource, setDataSource] = useState<CategoryResponseModel[]>([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [isCreateModalOpen, setCreateModalOpen] = useState<boolean>(false);
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState<boolean>(false);
 
   const columns = [
     {
@@ -40,7 +45,12 @@ const Category = () => {
               setDeleteModalOpen(true);
             }}
           />
-          <UpdateButton onClick={() => {}} />
+          <UpdateButton
+            onClick={() => {
+              setSelectedUpdateData(record);
+              setUpdateModalOpen(true);
+            }}
+          />
         </Space>
       ),
     },
@@ -108,11 +118,20 @@ const Category = () => {
       />
       <CreateModal
         open={isCreateModalOpen}
-        onCreated={()=>{
-            setCreateModalOpen(false)
-            getAll()
+        onCreated={() => {
+          setCreateModalOpen(false);
+          getAll();
         }}
-        onCancel={()=>setCreateModalOpen(false)}
+        onCancel={() => setCreateModalOpen(false)}
+      />
+      <UpdateModal
+        open={isUpdateModalOpen}
+        data={selectedUpdateData}
+        onCancel={() => setUpdateModalOpen(false)}
+        onUpdated={() => {
+          setUpdateModalOpen(false);
+          getAll();
+        }}
       />
     </Space>
   );
