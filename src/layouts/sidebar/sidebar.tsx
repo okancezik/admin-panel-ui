@@ -53,7 +53,7 @@ import {
             },
             {
               label: "Customers",
-              key: "/customers",
+              key: "/customer",
               icon: <UserOutlined />,
             },
           ]}

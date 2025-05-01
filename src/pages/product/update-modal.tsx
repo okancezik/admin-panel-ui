@@ -13,7 +13,6 @@ const UpdateModal = (props: UpdateModalProps) => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Formu mevcut ürünle başlatma
   const [form] = Form.useForm();
   useEffect(() => {
     if (data) {
