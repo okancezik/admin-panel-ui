@@ -1,4 +1,4 @@
-import { Card, Col, Row, Statistic, Table, Typography } from "antd";
+import { Card, Col, Row, Space, Statistic, Table, Typography } from "antd";
 import {
   DollarOutlined,
   ShoppingCartOutlined,
@@ -47,8 +47,8 @@ const Dashboard = () => {
   }));
 
   return (
-    <div style={{ padding: 24 }}>
-      <Typography.Title level={3}>Dashboard</Typography.Title>
+    <Space style={{ width: "100%" }} size={20} direction="vertical">
+      <Typography.Title level={3} style={{marginTop:"0"}}>Dashboard</Typography.Title>
 
       <Row gutter={16}>
         <Col span={6}>
@@ -129,7 +129,7 @@ const Dashboard = () => {
           loading={loading}
         />
       </Card>
-    </div>
+    </Space>
   );
 };
 

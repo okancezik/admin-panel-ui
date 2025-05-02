@@ -8,15 +8,20 @@ import UpdateButton from "../../components/buttons/update-button/update-button";
 import UpdateModal from "./update-modal";
 import { ProductUpdateRequestModel } from "../../api/models/product/product-update-request-model";
 import CreateModal from "./create-modal";
+import CategoryApi from "../../api/services/category/category-api";
+import { CategoryResponseModel } from "../../api/models/category/category-response-model";
+import type { Key } from "react";
 
 const Product = () => {
   const [dataSource, setDataSource] = useState<ProductResponseModel[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [categories, setCategories] = useState<
+    { text: string; value: string }[]
+  >([]);
 
   const [selectedData, setSelectedData] = useState<
     ProductResponseModel | undefined
   >(undefined);
-
   const [selectedUpdateData, setSelectedUpdateData] = useState<
     ProductUpdateRequestModel | undefined
   >(undefined);
@@ -37,6 +42,9 @@ const Product = () => {
     {
       title: "Category",
       dataIndex: "categoryName",
+      filters: categories,
+      onFilter: (value: boolean | Key, record: ProductResponseModel) =>
+        record.categoryName === value,
     },
     {
       title: "Price",
@@ -47,12 +55,8 @@ const Product = () => {
       dataIndex: "stock",
     },
     {
-      title: "Category",
-      dataIndex: "categoryName",
-    },
-    {
       title: "Action",
-      key: "",
+      key: "action",
       render: (record: ProductResponseModel) => (
         <Space>
           <DeleteButton
@@ -63,13 +67,7 @@ const Product = () => {
           />
           <UpdateButton
             onClick={() => {
-              setSelectedUpdateData({
-                id: record.id,
-                name: record.name,
-                description: record.name,
-                price: record.price,
-                stock: record.stock,
-              } as ProductUpdateRequestModel);
+              setSelectedUpdateData(record);
               setUpdateModalOpen(true);
             }}
           />
@@ -80,6 +78,7 @@ const Product = () => {
 
   useEffect(() => {
     getAll();
+    getCategories();
   }, []);
 
   const getAll = async () => {
@@ -95,6 +94,20 @@ const Product = () => {
     }
   };
 
+  const getCategories = async () => {
+    try {
+      const api = new CategoryApi();
+      const response = await api.GetAll();
+      const filterOptions = response.map((cat: CategoryResponseModel) => ({
+        text: cat.name,
+        value: cat.name, // filtreleme categoryName üzerinden yapıldığı için name kullanıyoruz
+      }));
+      setCategories(filterOptions);
+    } catch (error) {
+      console.error("Kategoriler alınamadı:", error);
+    }
+  };
+
   const deleteProduct = async () => {
     setLoading(true);
     if (selectedData) {
@@ -102,7 +115,7 @@ const Product = () => {
         const api = new ProductApi();
         await api.Delete(selectedData.id);
       } catch (error) {
-        console.error("Ürünler alınırken hata oluştu:", error);
+        console.error("Silme hatası:", error);
       } finally {
         setLoading(false);
         setDeleteModalOpen(false);
@@ -112,10 +125,10 @@ const Product = () => {
   };
 
   return (
-    <Space style={{width:"100%"}} size={20} direction="vertical">
+    <Space style={{ width: "100%" }} size={20} direction="vertical">
       <Row justify={"space-between"} align={"middle"}>
         <Col>
-          <Typography.Title level={4}>Products</Typography.Title>
+         <Typography.Title level={4}  style={{marginTop:"0"}}>Products</Typography.Title>
         </Col>
         <Col>
           <Button type="primary" onClick={() => setCreateModalOpen(true)}>
@@ -128,14 +141,11 @@ const Product = () => {
         columns={columns}
         dataSource={dataSource}
         rowKey="id"
-        pagination={{
-          pageSize: 10,
-        }}
+        pagination={{ pageSize: 10 }}
         scroll={{ x: "max-content" }}
-        />
+      />
       <DeleteModal
         open={isDeleteModelOpen}
-        data={selectedData}
         onCancel={() => setDeleteModalOpen(false)}
         onOk={deleteProduct}
       />
@@ -148,13 +158,13 @@ const Product = () => {
           getAll();
         }}
       />
-      <CreateModal 
+      <CreateModal
         open={isCreateModelOpen}
-        onCreated={()=>{
-            setCreateModalOpen(false)
-            getAll()
+        onCreated={() => {
+          setCreateModalOpen(false);
+          getAll();
         }}
-        onCancel={()=>setCreateModalOpen(false)}
+        onCancel={() => setCreateModalOpen(false)}
       />
     </Space>
   );

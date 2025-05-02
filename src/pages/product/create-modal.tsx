@@ -90,7 +90,7 @@ const CreateModal = (props: CreateModalProps) => {
         </Form.Item>
         <Form.Item>
           <Button loading={loading} htmlType="submit" type="primary">
-            Güncelle
+            Ekle
           </Button>
         </Form.Item>
       </Form>

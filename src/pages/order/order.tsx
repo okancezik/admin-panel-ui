@@ -1,4 +1,4 @@
-import { Button, Col, Row, Space, Table, Typography } from "antd";
+import { Button, Col, Flex, Row, Select, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import DeleteButton from "../../components/buttons/delete-button/delete-button";
 import DeleteModal from "../../components/modals/delete-modal";
@@ -9,9 +9,12 @@ import UpdateButton from "../../components/buttons/update-button/update-button";
 import UpdateModal from "./update-modal";
 import ViewDetailModal from "./view-detail-modal";
 import { EyeOutlined } from "@ant-design/icons";
+import CustomerApi from "../../api/services/customer/customer-api";
+import { CustomerResponseModel } from "../../api/models/customer/customer-response-model";
 
 const Order = () => {
   const [dataSource, setDataSource] = useState<OrderResponseModel[]>([]);
+  const [customers, setCustomers] = useState<CustomerResponseModel[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [selectedData, setSelectedData] = useState<
@@ -90,6 +93,10 @@ const Order = () => {
     getAll();
   }, []);
 
+  useEffect(() => {
+    getCustomers();
+  }, []);
+
   const getAll = async () => {
     setLoading(true);
     try {
@@ -119,11 +126,53 @@ const Order = () => {
     }
   };
 
+  const getCustomers = async () => {
+    setLoading(true);
+    try {
+      const customerApi = new CustomerApi();
+      const data = await customerApi.GetAll();
+      setCustomers(data);
+    } catch (error) {
+      console.error("Ürünler alınırken hata oluştu:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getOrdersByCustomer = async (customerId: string | null) => {
+    setLoading(true);
+    try {
+      const api = new OrderApi();
+      if (customerId) {
+        const filteredOrders = await api.GetByCustomerId(customerId);
+        setDataSource(filteredOrders);
+      } else {
+        getAll();
+      }
+    } catch (error) {
+      console.error("Siparişler alınırken hata oluştu:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Space style={{ width: "100%" }} size={20} direction="vertical">
       <Row justify={"space-between"} align={"middle"}>
         <Col>
-          <Typography.Title level={4}>Orders</Typography.Title>
+          <Flex align="center">
+            <Typography.Title level={4} style={{marginTop:"0"}}>Orders</Typography.Title>
+            <Select
+              style={{ width: 200, marginLeft: 16 }}
+              placeholder="Select a customer"
+              options={customers.map((customer) => ({
+                label: customer.firstname + " " + customer.lastname,
+                value: customer.id,
+              }))}
+              onChange={(value) => getOrdersByCustomer(value)}
+              allowClear
+            />
+          </Flex>
         </Col>
         <Col>
           <Button type="primary" onClick={() => setCreateModalOpen(true)}>

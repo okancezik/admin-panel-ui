@@ -4,5 +4,6 @@ export interface ProductUpdateRequestModel {
     description: string;
     stock: number;
     price: number;
+    categoryId: string;
   }
   

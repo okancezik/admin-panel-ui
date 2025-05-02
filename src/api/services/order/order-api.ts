@@ -11,17 +11,24 @@ export default class OrderApi {
     return response.data;
   }
 
-  public async Delete(id:string) {
+  public async Delete(id: string) {
     return await axios.delete<OrderResponseModel[]>(
       `http://localhost:8080/api/v1/order/${id}`
     );
   }
 
-  public async Update(data: OrderUpdateRequestModel){
-    return await axios.put("http://localhost:8080/api/v1/order",data);
+  public async Update(data: OrderUpdateRequestModel) {
+    return await axios.put("http://localhost:8080/api/v1/order", data);
   }
 
-  public async Create(data: OrderCreateRequestModel){
-    return await axios.post("http://localhost:8080/api/v1/order",data);
+  public async Create(data: OrderCreateRequestModel) {
+    return await axios.post("http://localhost:8080/api/v1/order", data);
+  }
+
+  public async GetByCustomerId(id: string): Promise<OrderResponseModel[]> {
+    const response = await axios.get<OrderResponseModel[]>(
+      `http://localhost:8080/api/v1/order/${id}`
+    );
+    return response.data;
   }
 }

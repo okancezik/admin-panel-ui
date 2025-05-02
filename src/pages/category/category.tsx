@@ -92,7 +92,7 @@ const Category = () => {
     <Space style={{ width: "100%" }} size={20} direction="vertical">
       <Row justify={"space-between"} align={"middle"}>
         <Col>
-          <Typography.Title level={4}>Categories</Typography.Title>
+          <Typography.Title level={4} style={{marginTop:"0"}}>Categories</Typography.Title>
         </Col>
         <Col>
           <Button type="primary" onClick={() => setCreateModalOpen(true)}>

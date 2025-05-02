@@ -11,12 +11,15 @@ import DeleteModal from "../../components/modals/delete-modal";
 function Customer() {
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState<CustomerResponseModel[]>([]);
-  const [selectedUpdateData, setSelectedUpdateData] = useState<CustomerResponseModel|undefined>(undefined)
-  const [selectedData, setSelectedData] = useState<CustomerResponseModel|undefined>(undefined)
+  const [selectedUpdateData, setSelectedUpdateData] = useState<
+    CustomerResponseModel | undefined
+  >(undefined);
+  const [selectedData, setSelectedData] = useState<
+    CustomerResponseModel | undefined
+  >(undefined);
   const [isCreateModelOpen, setCreateModalOpen] = useState<boolean>(false);
   const [isUpdateModelOpen, setUpdateModalOpen] = useState<boolean>(false);
   const [isDeleteModelOpen, setDeleteModalOpen] = useState<boolean>(false);
-
 
   const columns = [
     {
@@ -78,30 +81,34 @@ function Customer() {
     }
   };
 
-  const deleteCustomer =async ()=>{
-     setLoading(true);
-        if (selectedData) {
-          try {
-            const api = new CustomerApi();
-            await api.Delete(selectedData.id);
-          } catch (error) {
-            console.error("Ürünler alınırken hata oluştu:", error);
-          } finally {
-            setLoading(false);
-            setDeleteModalOpen(false);
-            getAll();
-          }
-        }
-  }
+  const deleteCustomer = async () => {
+    setLoading(true);
+    if (selectedData) {
+      try {
+        const api = new CustomerApi();
+        await api.Delete(selectedData.id);
+      } catch (error) {
+        console.error("Ürünler alınırken hata oluştu:", error);
+      } finally {
+        setLoading(false);
+        setDeleteModalOpen(false);
+        getAll();
+      }
+    }
+  };
 
   return (
     <Space style={{ width: "100%" }} size={20} direction="vertical">
       <Row justify={"space-between"} align={"middle"}>
         <Col>
-        <Typography.Title level={4}>Customers</Typography.Title>
+          <Typography.Title level={4} style={{ marginTop: "0" }}>
+            Customers
+          </Typography.Title>
         </Col>
         <Col>
-          <Button type="primary" onClick={()=>setCreateModalOpen(true)}>New Customer</Button>
+          <Button type="primary" onClick={() => setCreateModalOpen(true)}>
+            New Customer
+          </Button>
         </Col>
       </Row>
       <Table
@@ -120,7 +127,7 @@ function Customer() {
         }}
         onCancel={() => setCreateModalOpen(false)}
       />
-       <UpdateModal
+      <UpdateModal
         open={isUpdateModelOpen}
         data={selectedUpdateData}
         onCancel={() => setUpdateModalOpen(false)}
@@ -129,9 +136,8 @@ function Customer() {
           getAll();
         }}
       />
-            <DeleteModal
+      <DeleteModal
         open={isDeleteModelOpen}
-        data={selectedData}
         onCancel={() => setDeleteModalOpen(false)}
         onOk={deleteCustomer}
       />
