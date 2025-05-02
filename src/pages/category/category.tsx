@@ -114,7 +114,6 @@ const Category = () => {
         open={isDeleteModalOpen}
         onCancel={() => setDeleteModalOpen(false)}
         onOk={deleteCategory}
-        data={selectedData}
       />
       <CreateModal
         open={isCreateModalOpen}

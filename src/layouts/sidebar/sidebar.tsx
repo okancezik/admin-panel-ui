@@ -48,7 +48,7 @@ import {
             },
             {
               label: "Orders",
-              key: "/orders",
+              key: "/order",
               icon: <ShoppingCartOutlined />,
             },
             {
