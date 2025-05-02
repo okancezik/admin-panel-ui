@@ -1,10 +1,10 @@
 import { Button, Col, Row, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import ProductApi from "../../api/services/product/product-api";
 import DeleteButton from "../../components/buttons/delete-button/delete-button";
 import DeleteModal from "../../components/modals/delete-modal";
 import { OrderResponseModel } from "../../api/models/order/order-response-model";
 import OrderApi from "../../api/services/order/order-api";
+import CreateModal from "./create-modal";
 
 const Order = () => {
   const [dataSource, setDataSource] = useState<OrderResponseModel[]>([]);
@@ -14,12 +14,7 @@ const Order = () => {
   OrderResponseModel | undefined
   >(undefined);
 
-  const [selectedUpdateData, setSelectedUpdateData] = useState<
-    OrderResponseModel | undefined
-  >(undefined);
-
   const [isDeleteModelOpen, setDeleteModalOpen] = useState<boolean>(false);
-  const [isUpdateModelOpen, setUpdateModalOpen] = useState<boolean>(false);
   const [isCreateModelOpen, setCreateModalOpen] = useState<boolean>(false);
 
 
@@ -140,7 +135,7 @@ const Order = () => {
           setUpdateModalOpen(false);
           getAll();
         }}
-      />
+      />*/}
       <CreateModal 
         open={isCreateModelOpen}
         onCreated={()=>{
@@ -148,7 +143,7 @@ const Order = () => {
             getAll()
         }}
         onCancel={()=>setCreateModalOpen(false)}
-      /> */}
+      /> 
     </Space>
   );
 };
