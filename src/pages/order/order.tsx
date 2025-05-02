@@ -5,23 +5,36 @@ import DeleteModal from "../../components/modals/delete-modal";
 import { OrderResponseModel } from "../../api/models/order/order-response-model";
 import OrderApi from "../../api/services/order/order-api";
 import CreateModal from "./create-modal";
+import UpdateButton from "../../components/buttons/update-button/update-button";
+import UpdateModal from "./update-modal";
+import ViewDetailModal from "./view-detail-modal";
+import { EyeOutlined } from "@ant-design/icons";
 
 const Order = () => {
   const [dataSource, setDataSource] = useState<OrderResponseModel[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [selectedData, setSelectedData] = useState<
-  OrderResponseModel | undefined
+    OrderResponseModel | undefined
+  >(undefined);
+
+  const [selectedUpdateData, setSelectedUpdateData] = useState<
+    OrderResponseModel | undefined
+  >(undefined);
+
+  const [selectedDetailData, setSelectedDetailData] = useState<
+    OrderResponseModel | undefined
   >(undefined);
 
   const [isDeleteModelOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [isUpdateModelOpen, setUpdateModalOpen] = useState<boolean>(false);
   const [isCreateModelOpen, setCreateModalOpen] = useState<boolean>(false);
-
+  const [isDetailModalOpen, setDetailModalOpen] = useState<boolean>(false);
 
   const columns = [
     {
-      title: "Order ID",
-      dataIndex: "orderId",
+      title: "ID",
+      dataIndex: "id",
       key: "orderId",
     },
     {
@@ -50,16 +63,22 @@ const Order = () => {
       key: "action",
       render: (record: OrderResponseModel) => (
         <Space>
-          {/* <ViewButton
-            onClick={() => {
-              // detay modalı açmak gibi bir işlem yapılabilir
-              console.log("Viewing order:", record.orderId);
-            }}
-          /> */}
           <DeleteButton
             onClick={() => {
-                setSelectedData(record)
-              setDeleteModalOpen(true)
+              setSelectedData(record);
+              setDeleteModalOpen(true);
+            }}
+          />
+          <UpdateButton
+            onClick={() => {
+              setSelectedUpdateData(record);
+              setUpdateModalOpen(true);
+            }}
+          />
+          <EyeOutlined
+            onClick={() => {
+              setSelectedDetailData(record);
+              setDetailModalOpen(true);
             }}
           />
         </Space>
@@ -89,7 +108,7 @@ const Order = () => {
     if (selectedData) {
       try {
         const api = new OrderApi();
-        await api.Delete(selectedData.orderId);
+        await api.Delete(selectedData.id);
       } catch (error) {
         console.error("Ürünler alınırken hata oluştu:", error);
       } finally {
@@ -101,7 +120,7 @@ const Order = () => {
   };
 
   return (
-    <Space style={{width:"100%"}} size={20} direction="vertical">
+    <Space style={{ width: "100%" }} size={20} direction="vertical">
       <Row justify={"space-between"} align={"middle"}>
         <Col>
           <Typography.Title level={4}>Orders</Typography.Title>
@@ -121,29 +140,34 @@ const Order = () => {
           pageSize: 10,
         }}
         scroll={{ x: "max-content" }}
-        />
+      />
       <DeleteModal
         open={isDeleteModelOpen}
         onCancel={() => setDeleteModalOpen(false)}
         onOk={deleteOrder}
       />
-      {/* <UpdateModal
+      <UpdateModal
         open={isUpdateModelOpen}
-        data={selectedUpdateData}
+        order={selectedUpdateData}
         onCancel={() => setUpdateModalOpen(false)}
         onUpdated={() => {
           setUpdateModalOpen(false);
           getAll();
         }}
-      />*/}
-      <CreateModal 
+      />
+      <CreateModal
         open={isCreateModelOpen}
-        onCreated={()=>{
-            setCreateModalOpen(false)
-            getAll()
+        onCreated={() => {
+          setCreateModalOpen(false);
+          getAll();
         }}
-        onCancel={()=>setCreateModalOpen(false)}
-      /> 
+        onCancel={() => setCreateModalOpen(false)}
+      />
+      <ViewDetailModal
+        open={isDetailModalOpen}
+        orderData={selectedDetailData}
+        onClose={() => setDetailModalOpen(false)}
+      />
     </Space>
   );
 };

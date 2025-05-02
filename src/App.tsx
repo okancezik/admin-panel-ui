@@ -1,10 +1,16 @@
-import BaseLayout from "./layouts/base-layout/base-layout"
+import BaseLayout from "./layouts/base-layout/base-layout";
 
-function App() {
-
-  return (
-   <BaseLayout/>
-  )
+interface AppProps {
+  isDarkMode: boolean;
+  setIsDarkMode: (value: boolean) => void;
 }
 
-export default App
+function App({ isDarkMode, setIsDarkMode }: AppProps) {
+  return (
+    <>
+      <BaseLayout isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+    </>
+  );
+}
+
+export default App;

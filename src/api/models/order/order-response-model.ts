@@ -1,7 +1,7 @@
 import { OrderItemResponse } from "./order-item-response-model";
 
 export interface OrderResponseModel {
-  orderId: string;
+  id: string;
   customerId: string;
   customerName: string;
   customerEmail: string;

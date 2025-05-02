@@ -1,10 +1,15 @@
 import { BellFilled, MailOutlined } from "@ant-design/icons";
-import { Badge, Drawer, Image, List, Space, Typography } from "antd";
+import { Badge, Drawer, List, Space, Switch, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getComments, getOrders } from "../../api";
 import styles from './navbar.module.scss';
 
-const Navbar = ()=> {
+interface NavbarProps {
+  isDarkMode: boolean;
+  setIsDarkMode: (value: boolean) => void;
+}
+
+const Navbar = ({isDarkMode, setIsDarkMode}:NavbarProps)=> {
   const [comments, setComments] = useState([]);
   const [orders, setOrders] = useState([]);
   const [commentsOpen, setCommentsOpen] = useState(false);
@@ -21,10 +26,12 @@ const Navbar = ()=> {
 
   return (
     <div className={styles['navbar']}>
-      <Image
-        width={40}
-        src="https://yt3.ggpht.com/ytc/AMLnZu83ghQ28n1SqADR-RbI2BGYTrqqThAtJbfv9jcq=s176-c-k-c0x00ffffff-no-rj"
-      ></Image>
+      <Switch
+        checked={isDarkMode}
+        onChange={setIsDarkMode}
+        checkedChildren="🌙 Dark"
+        unCheckedChildren="☀️ Light"
+      />
       <Typography.Title>Admin Panel</Typography.Title>
       <Space>
         <Badge count={comments.length} dot>

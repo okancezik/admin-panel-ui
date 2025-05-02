@@ -1,14 +1,18 @@
-import React from 'react'
 import styles from './base-layout.module.scss';
 import Navbar from '../navbar/navbar';
 import Sidebar from '../sidebar/sidebar';
 import PageContent from '../page-content/page-content';
 
-const BaseLayout = () => {
+interface BaseLayoutProps {
+  isDarkMode: boolean;
+  setIsDarkMode: (value: boolean) => void;
+}
+
+const BaseLayout = ({isDarkMode, setIsDarkMode}:BaseLayoutProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.navbar}>
-        <Navbar />
+      <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       </div>
       <div className={styles.contentWrapper}>
         <div className={styles.sidebar}>

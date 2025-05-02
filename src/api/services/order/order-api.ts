@@ -1,7 +1,7 @@
 import axios from "axios";
-import { ProductUpdateRequestModel } from "../../models/product/product-update-request-model";
 import { OrderResponseModel } from "../../models/order/order-response-model";
 import { OrderCreateRequestModel } from "../../models/order/order-create-request-model";
+import { OrderUpdateRequestModel } from "../../models/order/order-update-request-model";
 
 export default class OrderApi {
   public async GetAll(): Promise<OrderResponseModel[]> {
@@ -17,7 +17,7 @@ export default class OrderApi {
     );
   }
 
-  public async Update(data: ProductUpdateRequestModel){
+  public async Update(data: OrderUpdateRequestModel){
     return await axios.put("http://localhost:8080/api/v1/order",data);
   }
 
