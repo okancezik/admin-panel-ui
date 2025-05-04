@@ -106,7 +106,7 @@ const Category = () => {
         dataSource={dataSource}
         rowKey="id"
         pagination={{
-          pageSize: 10,
+          pageSize: 5,
         }}
         scroll={{ x: "max-content" }}
       />

@@ -6,7 +6,7 @@ import { ConfigProvider, theme } from "antd";
 import { useState } from "react";
 
 const Root = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   return (
     <ConfigProvider

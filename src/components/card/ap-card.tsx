@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Card, CardProps } from "antd";
+import styles from "./ap-card.module.scss";
 
 interface APCardProps extends CardProps {
   children: ReactNode;
@@ -7,14 +8,7 @@ interface APCardProps extends CardProps {
 
 const APCard = (props: APCardProps) => {
   return (
-    <Card
-      style={{
-        height: 150,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
+    <Card className={styles.container} {...props}>
       {props.children}
     </Card>
   );

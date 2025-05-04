@@ -52,7 +52,7 @@ const Dashboard = () => {
 
       <Row gutter={16}>
         <Col span={6}>
-          <APCard onClick={() => navigate("/order")}>
+          <APCard style={{"cursor":"pointer"}} onClick={() => navigate("/order")}>
             <Statistic
               title="Total Orders"
               value={orders.length}
@@ -74,7 +74,7 @@ const Dashboard = () => {
           </APCard>
         </Col>
         <Col span={6}>
-          <APCard onClick={() => navigate("/customer")}>
+          <APCard style={{"cursor":"pointer"}} onClick={() => navigate("/customer")}>
             <Statistic
               title="Unique Customers"
               value={uniqueCustomers}
@@ -93,7 +93,7 @@ const Dashboard = () => {
               suffix="₺"
               valueStyle={{ color: "#3f8600" }}
             />
-            <div style={{ marginTop: 8, color: "#3f8600", fontSize: 12 }}>
+            <div style={{ color: "#3f8600", fontSize: 12 }}>
               ▲ 12.5% from last week
             </div>
           </APCard>
