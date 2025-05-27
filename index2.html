@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cafe Menü</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f1e7;
+      --text: #a77e45;
+      --altin: #b38a59;
+      --kategori-bg: #f2e7d5;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
+      margin: 0;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 20px;
+      color: var(--altin);
+      transition: color 0.4s ease;
+    }
+
+    .lang-switch,
+    .theme-switch {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .lang-switch button,
+    .theme-switch button {
+      background: none;
+      border: 1px solid var(--altin);
+      color: var(--altin);
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px 5px;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      font-size: 16px;
+    }
+
+    .kategori {
+      margin-top: 40px;
+    }
+
+    .kategori-title {
+      display: flex;
+      align-items: center;
+      background: var(--kategori-bg);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 1.3em;
+      color: var(--altin);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .kategori-title img {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dotted #d9c8af;
+    }
+
+    .menu-item span {
+      font-weight: 500;
+    }
+
+    .price {
+      font-weight: 600;
+      color: var(--altin);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.6em;
+      }
+
+      .kategori-title {
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div style="display: flex; justify-content: end;">
+    <div class="theme-switch">
+      <button id="themeButton" onclick="toggleTheme()">🌞</button>
+    </div>
+  </div>
+  <div>
+    <h1 id="baslik" style="margin-top: 0;">
+      <img src="images/coffee-shop.png" alt="Cafe Logo" style="width:60px; vertical-align: sub; margin-right:10px;">
+      Cafe Menü
+    </h1>
+
+    <div class="lang-switch">
+      <button onclick="changeLang('tr')">🇹🇷 Türkçe</button>
+      <button onclick="changeLang('en')">🇬🇧 English</button>
+    </div>
+  </div>
+
+
+  <div class="kategori">
+    <div class="kategori-title"><img src="images/latte.png" alt="Kahve"> <span id="kat-kahve">Kahve</span></div>
+    <div class="menu-item"><span data-tr="Espresso" data-en="Espresso"></span> <span class="price">70₺</span></div>
+    <div class="menu-item"><span data-tr="Cappuccino" data-en="Cappuccino"></span> <span class="price">120₺</span></div>
+    <div class="menu-item"><span data-tr="Latte" data-en="Latte"></span> <span class="price">120₺</span></div>
+    <div class="menu-item"><span data-tr="Americano" data-en="Americano"></span> <span class="price">100₺</span></div>
+    <div class="menu-item"><span data-tr="Cold Brew" data-en="Cold Brew"></span> <span class="price">95₺</span></div>
+    <div class="menu-item"><span data-tr="Türk Kahvesi" data-en="Turkish Coffee"></span> <span class="price">85₺</span>
+    </div>
+  </div>
+
+  <div class="kategori">
+    <div class="kategori-title"><img src="images/tea.png" alt="Çay"> <span id="kat-cay">Çay</span></div>
+    <div class="menu-item"><span data-tr="Siyah Çay" data-en="Black Tea"></span> <span class="price">55₺</span></div>
+    <div class="menu-item"><span data-tr="Yeşil Çay" data-en="Green Tea"></span> <span class="price">75₺</span></div>
+    <div class="menu-item"><span data-tr="Earl Grey" data-en="Earl Grey"></span> <span class="price">80₺</span></div>
+    <div class="menu-item"><span data-tr="Papatya Çayı" data-en="Chamomile Tea"></span> <span class="price">75₺</span>
+    </div>
+    <div class="menu-item"><span data-tr="Beyaz Çay" data-en="White Tea"></span> <span class="price">75₺</span></div>
+  </div>
+
+  <div class="kategori">
+    <div class="kategori-title"><img src="images/cake.png" alt="Tatlı"> <span id="kat-tatli">Tatlılar</span></div>
+    <div class="menu-item"><span data-tr="San Sebastian Cheesecake" data-en="San Sebastian Cheesecake"></span> <span
+        class="price">210₺</span></div>
+    <div class="menu-item"><span data-tr="Havuçlu Kek" data-en="Carrot Cake"></span> <span class="price">180₺</span>
+    </div>
+    <div class="menu-item"><span data-tr="Muzlu Magnolia" data-en="Banana Magnolia"></span> <span
+        class="price">195₺</span></div>
+    <div class="menu-item"><span data-tr="Çikolatalı Sufle" data-en="Chocolate Souffle"></span> <span
+        class="price">200₺</span></div>
+    <div class="menu-item"><span data-tr="Frambuazlı Tart" data-en="Raspberry Tart"></span> <span
+        class="price">160₺</span></div>
+  </div>
+
+  <div class="kategori">
+    <div class="kategori-title"><img src="images/cookie.png" alt="Kurabiye"> <span id="kat-kurabiye">Kurabiyeler</span>
+    </div>
+    <div class="menu-item"><span data-tr="Çikolatalı Kurabiye" data-en="Chocolate Chip Cookie"></span> <span
+        class="price">100₺</span></div>
+    <div class="menu-item"><span data-tr="Fındıklı Kurabiye" data-en="Hazelnut Cookie"></span> <span
+        class="price">110₺</span></div>
+    <div class="menu-item"><span data-tr="Tereyağlı Kurabiye" data-en="Butter Cookie"></span> <span
+        class="price">80₺</span></div>
+    <div class="menu-item"><span data-tr="Red Velvet Cookie" data-en="Red Velvet Cookie"></span> <span
+        class="price">110₺</span></div>
+    <div class="menu-item"><span data-tr="Antep Fıstıklı Kurabiye" data-en="Pistachio Cookie"></span> <span
+        class="price">130₺</span></div>
+  </div>
+
+  <div class="kategori">
+    <div class="kategori-title"><img src="images/dish.png" alt="Atıştırmalık"> <span
+        id="kat-atis">Atıştırmalıklar</span></div>
+    <div class="menu-item"><span data-tr="Sade Kruvasan" data-en="Plain Croissant"></span> <span
+        class="price">125₺</span></div>
+    <div class="menu-item"><span data-tr="Mini Sandviç" data-en="Mini Sandwich"></span> <span class="price">150₺</span>
+    </div>
+    <div class="menu-item"><span data-tr="Tavuklu Wrap" data-en="Chicken Wrap"></span> <span class="price">210₺</span>
+    </div>
+    <div class="menu-item"><span data-tr="Zeytinli Açma" data-en="Bagel With Olives"></span> <span
+        class="price">80₺</span></div>
+    <div class="menu-item"><span data-tr="Tuzlu Kurabiye" data-en="Salted Biscuits"></span> <span
+        class="price">85₺</span></div>
+  </div>
+
+
+  <footer id="footer"
+    style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #d9c8af; text-align: center; font-size: 0.95em; color: #a77e45;">
+    <p id="adres"><strong>📍 Adres:</strong> Güneş Sokak No:12, Kadıköy / İstanbul</p>
+    <p id="telefon"><strong>📞 Telefon:</strong> +90 212 123 45 67</p>
+    <p id="email"><strong>📧 E-posta:</strong> info@cafemenu.com</p>
+  </footer>
+
+  <script>
+    let currentLang = 'tr';
+    let darkMode = false;
+
+    function changeLang(lang) {
+      currentLang = lang;
+      renderMenu();
+    }
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      applyTheme();
+      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    }
+
+    function applyTheme() {
+      if (darkMode) {
+        document.documentElement.style.setProperty('--bg', '#2c2c2c');
+        document.documentElement.style.setProperty('--text', '#f6f1e7');
+        document.documentElement.style.setProperty('--altin', '#cfae76');
+        document.documentElement.style.setProperty('--kategori-bg', '#393939');
+        document.getElementById('themeButton').innerHTML = '🌙';
+      } else {
+        document.documentElement.style.setProperty('--bg', '#f6f1e7');
+        document.documentElement.style.setProperty('--text', '#a77e45');
+        document.documentElement.style.setProperty('--altin', '#b38a59');
+        document.documentElement.style.setProperty('--kategori-bg', '#f2e7d5');
+        document.getElementById('themeButton').innerHTML = '🌞';
+      }
+    }
+
+    async function renderMenu() {
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/category');
+        const categories = await response.json();
+
+        const container = document.body;
+        container.querySelectorAll(".kategori").forEach(el => el.remove());
+
+        for (const category of categories) {
+          const section = document.createElement("div");
+          section.className = "kategori";
+
+          // Kategori başlığı ve resmi
+          const titleHTML = `
+        <div class="kategori-title">
+          <img src="${category.image}" alt="${category.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; margin-right: 10px;">
+          <span>${category.name}</span>
+        </div>
+      `;
+          section.innerHTML = titleHTML;
+
+          // Ürünler
+          category.productList.forEach(product => {
+            const itemHTML = `
+          <div class="menu-item">
+            <span>${currentLang === 'en' ? product.name : product.name}</span>
+            <span class="price">${product.price}₺</span>
+          </div>
+        `;
+            section.innerHTML += itemHTML;
+          });
+
+          container.insertBefore(section, document.getElementById("footer"));
+        }
+
+        // Başlık ve footer çevirisi
+        document.getElementById("baslik").innerHTML = currentLang === "en"
+          ? '<img src="images/coffee-shop.png" style="width:60px; vertical-align: sub; margin-right:10px;"> Cafe Menu'
+          : '<img src="images/coffee-shop.png" style="width:60px; vertical-align: sub; margin-right:10px;"> Cafe Menü';
+
+        document.getElementById("adres").innerHTML = currentLang === "en"
+          ? '<strong>📍 Address:</strong> Gunes Street No:12, Kadikoy / Istanbul'
+          : '<strong>📍 Adres:</strong> Güneş Sokak No:12, Kadıköy / İstanbul';
+
+        document.getElementById("telefon").innerHTML = currentLang === "en"
+          ? '<strong>📞 Phone:</strong> +90 212 123 45 67'
+          : '<strong>📞 Telefon:</strong> +90 212 123 45 67';
+
+        document.getElementById("email").innerHTML = currentLang === "en"
+          ? '<strong>📧 Email:</strong> info@cafemenu.com'
+          : '<strong>📧 E-posta:</strong> info@cafemenu.com';
+
+      } catch (error) {
+        console.error("Menü verisi alınamadı:", error);
+      }
+    }
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        darkMode = savedTheme === 'dark';
+        applyTheme();
+      }
+      renderMenu();
+    });
+  </script>
+
+</body>
+
+</html>

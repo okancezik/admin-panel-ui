@@ -62,6 +62,13 @@ const CreateModal = (props: CreateModalProps) => {
         >
           <Input />
         </Form.Item>
+         <Form.Item
+          label="Image"
+          name="image"
+          rules={[{ required: true, message: "Görsel zorunludur" }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item
           label="Stok Miktarı"
           name="stock"

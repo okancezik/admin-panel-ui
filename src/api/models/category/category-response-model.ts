@@ -4,5 +4,6 @@ export interface CategoryResponseModel{
     id:string,
     name:string,
     description:string,
+    image:string,
     productList: ProductResponseModel[]
 }

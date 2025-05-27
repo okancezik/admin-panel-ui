@@ -49,6 +49,13 @@ const CreateModal = (props: CreateModalProps) => {
         >
           <Input />
         </Form.Item>
+         <Form.Item
+          label="Görsel"
+          name="image"
+          rules={[{ required: true, message: "Görsel zorunludur" }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item>
           <Button loading={loading} htmlType="submit" type="primary">
             Ekle

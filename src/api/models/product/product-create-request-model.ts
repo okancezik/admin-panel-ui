@@ -3,5 +3,6 @@ export interface ProductCreateRequestModel {
   description: string;
   stock: number;
   price: number;
+  image:string;
   categoryId: string;
 }
